@@ -1,0 +1,9 @@
+Dương Đức Duy-20225828
+6.1
+  Nếu người dùng chọn "Cancel" trong hộp thoại "Save and Launch":
+   -Hủy bỏ quá trình lưu: Ứng dụng sẽ không lưu các tài nguyên hiện có, dẫn đến việc bất kỳ thay đổi nào chưa được lưu sẽ bị mất.
+   -Không khởi động ứng dụng: Quá trình khởi động ứng dụng cũng sẽ bị hủy, vì người dùng đã quyết định không tiếp tục.
+  Làm thế nào để tùy chỉnh các tùy chọn cho người dùng?:
+   -Sử dụng JOptionPane.showConfirmDialog để hiển thị các tùy chọn mà bạn muốn người dùng chọn.
+   vd: int option = JOptionPane.showConfirmDialog(null, "Do you want to save resources before launching?", "Save and Launch",
+        JOptionPane.YES_NO_OPTION);
