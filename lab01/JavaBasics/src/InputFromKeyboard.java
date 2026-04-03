@@ -18,8 +18,4 @@ public class InputFromKeyboard {
 
         keyboard.close();
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 721b3214550de16d023e12cd92843fcadde8aeb4
