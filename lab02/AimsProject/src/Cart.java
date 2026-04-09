@@ -18,6 +18,21 @@ public class Cart {
         }
     }
 
+    public void addDigitalVideoDisc(DigitalVideoDisc[] dvdList) {
+        if (dvdList == null) {
+            return;
+        }
+
+        for (DigitalVideoDisc dvd : dvdList) {
+            addDigitalVideoDisc(dvd);
+        }
+    }
+
+    public void addDigitalVideoDisc(DigitalVideoDisc dvd1, DigitalVideoDisc dvd2) {
+        addDigitalVideoDisc(dvd1);
+        addDigitalVideoDisc(dvd2);
+    }
+
     public void removeDigitalVideoDisc(DigitalVideoDisc disc) {
         if (disc == null) {
             return;
