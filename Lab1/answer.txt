@@ -1,0 +1,8 @@
+Nguyễn Đức Minh - 20225885
+Questions:
+
+* Khi người dùng chọn “Cancel”, chương trình sẽ trả về giá trị JOptionPane.CANCEL_OPTION.
+  Nếu không xử lý trường hợp này, chương trình có thể hoạt động sai hoặc cho kết quả không như mong muốn.
+
+* Để tùy chỉnh các lựa chọn hiển thị cho người dùng,
+  ta có thể sử dụng phương thức JOptionPane.showOptionDialog() và truyền vào một mảng các nhãn nút do mình tự định nghĩa, ví dụ như {"Yes", "No"} hoặc {"I do", "I don’t"} thay vì các nút mặc định.

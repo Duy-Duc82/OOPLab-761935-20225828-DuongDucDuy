@@ -1,0 +1,63 @@
+1. What is method overloading? What is the difference between method overloading and using varargs?
+
+Method overloading là kỹ thuật cho phép nhiều phương thức có cùng tên nhưng khác nhau về danh sách tham số (khác số lượng hoặc kiểu dữ liệu). Điều này giúp tăng tính linh hoạt khi sử dụng hàm.
+
+Varargs (tham số biến) cho phép truyền vào một số lượng tham số không cố định bằng cú pháp (...). Bên trong, varargs được xử lý như một mảng.
+
+Khác nhau:
+
+* Overloading: cần viết nhiều phương thức khác nhau.
+* Varargs: chỉ cần một phương thức nhưng nhận được nhiều tham số.
+* Varargs giúp code gọn hơn và linh hoạt hơn.
+
+2. Compare “==” and “equals()” when working with String objects.
+
+* Toán tử “==” so sánh địa chỉ bộ nhớ (tham chiếu) của hai đối tượng.
+* Phương thức “equals()” so sánh nội dung thực sự của chuỗi.
+
+Ví dụ:
+String a = "Hello";
+String b = "Hello";
+
+a == b → có thể true (do dùng string pool)
+a.equals(b) → luôn true (vì nội dung giống nhau)
+
+Kết luận: nên dùng equals() để so sánh nội dung chuỗi.
+
+3. What happens when passing objects as parameters in Java? Can we swap two objects?
+
+Trong Java, tham số được truyền theo kiểu pass-by-value. Với object, giá trị được truyền là bản sao của tham chiếu.
+
+Điều này có nghĩa:
+
+* Có thể thay đổi thuộc tính của object trong hàm và ảnh hưởng đến object gốc.
+* Nhưng không thể hoán đổi (swap) hai object trong hàm vì chỉ thay đổi bản sao của tham chiếu.
+
+Kết luận:
+
+* Thay đổi được nội dung object.
+* Không swap được hai object thật sự.
+
+4. When are objects eligible for garbage collection?
+
+Một object sẽ đủ điều kiện để bị thu gom rác khi không còn bất kỳ tham chiếu nào trỏ đến nó.
+
+Các trường hợp:
+
+* Gán object = null
+* Gán lại biến tham chiếu sang object khác
+* Object được tạo trong hàm sau khi hàm kết thúc
+
+Java sẽ tự động giải phóng bộ nhớ cho các object này.
+
+5. Why do we need to override toString()?
+
+Phương thức toString() dùng để biểu diễn object dưới dạng chuỗi.
+
+Nếu không override, Java sẽ in ra dạng mặc định:
+ClassName@hashcode (khó đọc)
+
+Khi override toString(), ta có thể hiển thị thông tin rõ ràng hơn, giúp dễ debug và in kết quả.
+
+Ví dụ:
+DVD - Title - Category - Director - Length: Cost$

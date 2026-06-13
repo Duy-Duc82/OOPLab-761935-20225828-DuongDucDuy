@@ -1,0 +1,34 @@
+Câu hỏi 1: Lỗi ép kiểu trong phương thức equals()
+
+Câu hỏi: Khi ghi đè phương thức equals() của lớp Object, nếu đối tượng được truyền vào (passing object) không phải là một instance (thể hiện) của Media, thì điều gì sẽ xảy ra?   
+
+Trả lời: Nếu đối tượng truyền vào không phải là một thể hiện của lớp Media, việc bạn cố tình ép kiểu (casting) đối tượng đó sang kiểu Media sẽ gây ra lỗi ngoại lệ ClassCastException tại thời điểm chạy (runtime). Để giải quyết vấn đề này một cách an toàn, trước khi ép kiểu, bạn cần sử dụng toán tử instanceof (ví dụ: if (obj instanceof Media)). Nếu điều kiện này trả về false, phương thức equals() nên trả về giá trị false ngay lập tức.
+
+
+Câu hỏi 2: Tính đa hình (Polymorphism) với phương thức toString()
+
+Câu hỏi: Tạo một danh sách ArrayList kiểu Media, sau đó thêm một số loại media (CD, DVD hoặc Book) vào danh sách. Lặp qua danh sách và in ra thông tin của media bằng cách sử dụng phương thức toString(). Hãy quan sát điều gì xảy ra và giải thích chi tiết.  
+
+Trả lời: Khi bạn sử dụng vòng lặp for để duyệt qua danh sách List<Media> và gọi m.toString(), thay vì in ra chuỗi thông tin định dạng của lớp cha Media, chương trình sẽ in ra định dạng thông tin cụ thể của từng loại đối tượng thực tế (Book, CompactDisc, hoặc DigitalVideoDisc).
+
+Giải thích: Đây là minh chứng cốt lõi cho Tính đa hình tại thời điểm chạy (Runtime Polymorphism) thông qua cơ chế Dynamic Method Dispatch. Dù biến tham chiếu m có kiểu dữ liệu là lớp cha Media, Máy ảo Java (JVM) sẽ tự động kiểm tra xem đối tượng thực sự nằm trong bộ nhớ tại thời điểm đó là kiểu dữ liệu con nào, sau đó gọi phương thức toString() đã được ghi đè (overridden) tương ứng bên trong chính lớp con đó.
+
+
+Câu hỏi 3: So sánh bằng Interface Comparable
+
+Trong phần 12, tài liệu đưa ra giả định sử dụng interface Comparable và phương thức compareTo() thay vì dùng Comparator. Dưới đây là các câu hỏi phụ liên quan:  
+
+Câu hỏi 3a: Lớp nào nên implement (triển khai) interface Comparable?   
+Trả lời: Lớp cha trừu tượng Media nên implement interface Comparable<Media>. Khi lớp cha implement interface này, tất cả các lớp con kế thừa từ nó (như Book, CompactDisc, DigitalVideoDisc) đều có khả năng tự so sánh với nhau thông qua một chuẩn chung.
+
+Câu hỏi 3b: Trong những lớp đó, bạn nên implement phương thức compareTo() như thế nào để phản ánh thứ tự mà chúng ta mong muốn?   
+Trả lời: Trong lớp Media, bạn ghi đè phương thức compareTo(Media other). Bên trong phương thức này, bạn định nghĩa quy tắc sắp xếp ưu tiên mặc định. Ví dụ: trước tiên gọi this.getTitle().compareTo(other.getTitle()). Nếu tiêu đề giống nhau (phương thức trả về 0), bạn tiếp tục so sánh đến giá tiền bằng cách sử dụng Float.compare(this.getCost(), other.getCost()).
+
+Câu hỏi 3c: Liệu chúng ta có thể có hai quy tắc sắp xếp cho các mặt hàng (theo tiêu đề rồi đến giá, và theo giá rồi đến tiêu đề) nếu chúng ta sử dụng phương pháp tiếp cận bằng interface Comparable này không?   
+Trả lời: Không. Interface Comparable bị giới hạn ở chỗ nó chỉ cho phép định nghĩa một quy tắc sắp xếp tự nhiên duy nhất (natural ordering) cho mỗi lớp. Để có nhiều quy tắc sắp xếp linh hoạt có thể thay đổi tùy ý lúc thực thi (ví dụ: lọc theo tên, hoặc lọc theo giá), bắt buộc phải khởi tạo các lớp riêng biệt implement interface Comparator.
+
+Câu hỏi 3d: Giả sử DVD có một quy tắc sắp xếp khác với các loại media khác, đó là theo tiêu đề, sau đó đến độ dài (giảm dần), rồi mới đến giá tiền. Bạn sẽ sửa đổi mã của mình như thế nào để cho phép điều này?   
+Trả lời: Để đáp ứng yêu cầu này, bên trong lớp con DigitalVideoDisc, bạn sẽ tiếp tục ghi đè (override) lại phương thức compareTo(Media other) đã được thừa kế từ Media.
+- Đầu tiên, dùng instanceof kiểm tra xem other có phải là một DigitalVideoDisc không.
+- Nếu đúng, tiến hành ép kiểu và so sánh lần lượt: Tiêu đề -> Chiều dài (bằng cách đảo ngược logic so sánh bình thường để có thứ tự giảm dần) -> Giá tiền.
+- Nếu other không phải là DigitalVideoDisc, bạn chỉ việc gọi super.compareTo(other) để chương trình sử dụng lại quy tắc so sánh gốc của lớp Media.
